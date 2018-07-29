@@ -9,7 +9,7 @@ class Cache
   end
 
   def get(key)
-    File.read(file_name(key)) if File.exists?(file_name(key))
+    JSON.parse(File.read(file_name(key))) if File.exists?(file_name(key))
   end
 
   def store(key, data)

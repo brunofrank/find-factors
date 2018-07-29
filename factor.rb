@@ -27,8 +27,11 @@ class FindFactors
   end
 end
 
-puts Benchmark.measure { FindFactors.new(*(1..10_000).to_a).calculate }
-#puts FindFactors.new(*(1..10_000).to_a).calculate
+if ARGV[0] ==  '--bench'
+  puts Benchmark.measure { FindFactors.new(*(1..10_000).to_a).calculate }
+else
+  puts FindFactors.new(*(1..10_000).to_a).calculate
+end
 
 
 # No cache ->   5.520000   0.040000   5.560000 (  5.601927)
