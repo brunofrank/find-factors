@@ -8,20 +8,19 @@ class Cache
     Dir.mkdir CACHE_PATH unless File.directory?(CACHE_PATH)
   end
 
-  def find(array)
-    File.read(file_name(array)) if File.exists?(file_name(array))
+  def get(key)
+    File.read(file_name(key)) if File.exists?(file_name(key))
   end
 
-  def save(array, data)
-    File.open(file_name(array), 'w') do |f|
+  def store(key, data)
+    File.open(file_name(key), 'w') do |f|
       f.write(JSON.dump(data))
     end
   end
 
   private
 
-  def file_name(data)
-    file = Digest::MD5.hexdigest(data.join(''))
-    "#{CACHE_PATH}/#{file}"
+  def file_name(key)
+    "#{CACHE_PATH}/#{Digest::MD5.hexdigest(key.join(''))}"
   end
 end

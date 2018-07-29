@@ -4,17 +4,19 @@ require 'benchmark'
 class FindFactors
   def initialize(*arry)
     @arry = arry
-    @factors = cache.find(arry)
   end
 
   def calculate
+    @factors = cache.get(@arry)
     return @factors unless @factors.nil?
 
     @factors = {}
     @arry.each do |item|
       @factors[item] = @arry.select { |a_item|  item % a_item == 0 && a_item != item }
     end
-    cache.save(@arry, @factors)
+
+    cache.store(@arry, @factors)
+
     @factors
   end
 
