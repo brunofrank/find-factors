@@ -7,17 +7,17 @@ class FindFactors
   end
 
   def calculate
-    @factors = cache.get(@arry)
-    return @factors unless @factors.nil?
+    factors = cache.get(@arry)
+    return factors unless factors.nil?
 
-    @factors = {}
+    factors = {}
     @arry.each do |item|
-      @factors[item] = @arry.select { |a_item|  item % a_item == 0 && a_item != item }
+      factors[item] = @arry.select { |a_item|  item % a_item == 0 && a_item != item }
     end
 
-    cache.store(@arry, @factors)
+    cache.store(@arry, factors)
 
-    @factors
+    factors
   end
 
   private
@@ -32,7 +32,3 @@ if ARGV[0] ==  '--bench'
 else
   puts FindFactors.new(*(1..10_000).to_a).calculate
 end
-
-
-# No cache ->   5.520000   0.040000   5.560000 (  5.601927)
-# With cache ->   0.010000   0.000000   0.010000 (  0.012519)
