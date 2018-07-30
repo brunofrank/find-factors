@@ -1,4 +1,4 @@
-require 'json'
+require 'yaml'
 require 'digest'
 
 class Cache
@@ -9,12 +9,12 @@ class Cache
   end
 
   def get(key)
-    JSON.parse(File.read(file_name(key))) if File.exists?(file_name(key))
+    YAML.load(File.read(file_name(key))) if File.exists?(file_name(key))
   end
 
   def store(key, data)
     File.open(file_name(key), 'w') do |f|
-      f.write(JSON.dump(data))
+      f.write(YAML.dump(data))
     end
   end
 

@@ -27,8 +27,6 @@ class FindFactors
   end
 end
 
-if ARGV[0] ==  '--bench'
-  puts Benchmark.measure { FindFactors.new(*(1..10_000).to_a).calculate }
-else
-  puts FindFactors.new(*(1..10_000).to_a).calculate
-end
+
+puts Benchmark.measure { FindFactors.new(*(1..10_000).to_a).calculate } if ARGV[0] ==  '--bench'
+puts FindFactors.new(*(1..10_000).to_a).calculate if ARGV[0] ==  '--calculate'
